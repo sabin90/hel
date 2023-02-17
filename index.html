@@ -1,0 +1,25 @@
+<button onclick="printLocation()">Print Location</button>
+<p>Your last location was: <span id="lastLocation"></span></p>
+<script>
+    function printLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
+function showPosition(position) {
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
+  var locationString = "Latitude: " + latitude + ", Longitude: " + longitude;
+  localStorage.setItem("lastLocation", locationString);
+  document.getElementById("lastLocation").textContent = locationString;
+}
+
+// Display the last location if it's present in localStorage
+if (localStorage.getItem("lastLocation")) {
+  document.getElementById("lastLocation").textContent = localStorage.getItem("lastLocation");
+}
+
+</script>
